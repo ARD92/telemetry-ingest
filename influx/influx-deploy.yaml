@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: influxdb
+  labels:
+    app: influxdb
+  namespace: bw-account
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: influxdb
+  template:
+    metadata:
+      labels:
+        app: influxdb
+    spec:
+      #imagePullSecrets:
+      #- name: reg-token
+      containers:
+        - name: influxdb
+          image: influxdb:latest
+          ports:
+            - containerPort: 8086
+              protocol: TCP
+          env: 
+            - name: INFLUXDB_DATABASE
+              value: jtimon
+          volumeMounts:
+            - mountPath: "/opt/aprabh/influxdb"
+              subPath: "influxdb"
+              name: influxdb-storage
+      volumes:
+        - name: influxdb-storage
+          persistentVolumeClaim:
+            claimName: influxdb-claim

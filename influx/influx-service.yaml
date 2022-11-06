@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: influxdb
+  labels:
+    app: influxdb 
+  namespace: bw-account
+spec:
+  type: NodePort
+  ports:
+  - nodePort: 31086
+    name: "influxdb"
+    port: 8086
+    targetPort: 8086
+  selector:
+    app: influxdb
+

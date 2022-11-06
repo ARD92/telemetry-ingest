@@ -1,0 +1,33 @@
+# Persistent volumes for JTImon
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: jtimon-pv
+  namespace: bw-account
+  labels:
+    type: local
+spec:
+  storageClassName: my-local-storage
+  capacity:
+    storage: 500Mi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/opt/aprabh/jtimon/config"
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  namespace: bw-account
+  labels:
+    app: jtimon-claim
+  name: jtimon-claim
+spec:
+  accessModes:
+  - ReadWriteOnce
+  storageClassName: my-local-storage
+  resources:
+    requests:
+      storage: 500Mi
+---

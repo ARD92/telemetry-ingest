@@ -1,0 +1,21 @@
+{
+    "host": "192.168.1.4",
+    "port": 32767,
+    "user": "root",
+    "password": "juniper123",
+    "cid": "bw_account_payg",
+    "kafka": {
+        "brokers": ["10.85.47.165:31093"],
+        "topic": "bw-account",
+        "client-id": "bw-account-vsrx"
+    },
+    "paths": [{
+        "path": "/interfaces",
+        "freq": 30000
+    }],
+    "log": {
+        "file": "log.txt",
+        "periodic-stats": 0,
+        "verbose": false
+    }
+}

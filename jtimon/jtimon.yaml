@@ -1,0 +1,33 @@
+# jtimon
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: bw-account
+  labels:
+    app: jtimon
+  name: jtimon
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jtimon
+  template:
+    metadata:
+      labels:
+        app: jtimon
+    spec:
+      containers:
+      - image: jtimon:latest
+        imagePullPolicy: IfNotPresent
+        name: jtimon
+        command: ["jtimon"]
+        args:
+          ["--config","subscribe.json"]
+        volumeMounts:
+        - mountPath: /u
+          name: mount-jtimon
+      volumes:
+      - name: mount-jtimon
+        persistentVolumeClaim:
+          claimName: jtimon-claim
